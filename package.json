@@ -1,0 +1,47 @@
+{
+  "name": "asl-accept-invitation",
+  "version": "1.0.0",
+  "description": "Animal Science Licensing",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon -r dotenv/config",
+    "test": "npm run test:lint",
+    "test:lint": "eslint .",
+    "build": "npm run build:js && npm run build:css",
+    "build:js": "webpack",
+    "prebuild:css": "mkdir -p ./public/css",
+    "build:css": "npm-sass ./assets/sass/app.scss > ./public/css/app.css",
+    "postinstall": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UKHomeOffice/asl-accept-invitation.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UKHomeOffice/asl-accept-invitation/issues"
+  },
+  "homepage": "https://github.com/UKHomeOffice/asl-accept-invitation#readme",
+  "dependencies": {
+    "@asl/pages": "^4.4.0",
+    "@asl/schema": "^3.2.1",
+    "@asl/service": "^4.1.0",
+    "aws-sdk": "^2.293.0",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.10"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "dotenv": "^5.0.1",
+    "eslint": "^4.15.0",
+    "eslint-config-lennym": "^2.0.1",
+    "nodemon": "^1.17.4",
+    "npm-sass": "^2.3.0",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.7"
+  }
+}
