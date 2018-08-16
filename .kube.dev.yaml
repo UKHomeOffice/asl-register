@@ -1,13 +1,13 @@
 ---
-- name: public-ui
+- name: register
   recipe: webapp
-  url: public-ui.notprod.asl.homeoffice.gov.uk
+  url: register.notprod.asl.homeoffice.gov.uk
   image: quay.io/ukhomeofficedigital/asl:{{.DRONE_COMMIT_SHA}}
   env:
-    REDIS_HOST: public-ui-redis
+    REDIS_HOST: register-redis
     REDIS_PASSWORD:
       secret: true
-      name: asl-dev-redis
+      name: register-dev-redis
       key: pass
     SESSION_SECRET:
       secret: true
@@ -20,10 +20,9 @@
       secret: true
       name: asl-dev-auth
       key: secret
-    API_URL: https://public-api.notprod.asl.homeoffice.gov.uk
 
-- name: public-ui-redis
+- name: register-redis
   recipe: redis
-  clients: public-ui
-  passwordName: asl-dev-redis
+  clients: register
+  passwordName: register-dev-redis
   passwordKey: pass

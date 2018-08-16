@@ -6,7 +6,7 @@ import Snippet from '@asl/pages/pages/common/views/containers/snippet';
 const Page = ({ model: { email } }) => (
   <FormLayout>
     <header>
-      <h3 className="grey">Step 1 of 2</h3>
+      <h3>&nbsp;</h3>
       <h1><Snippet>createAccount</Snippet></h1>
     </header>
     <div className="panel panel-wide">
