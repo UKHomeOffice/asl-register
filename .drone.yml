@@ -1,17 +1,17 @@
 pipeline:
 
   test:
-    image: node:8
+    image: node:10
     secrets:
       - npm_auth_token
     commands:
-      - npm install
+      - npm ci
       - npm test
     when:
       event: [push, pull_request, tag]
 
   compile:
-    image: node:8
+    image: node:10
     secrets:
       - npm_auth_token
     commands:
@@ -26,10 +26,10 @@ pipeline:
     environment:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
-      - docker build --build-arg NPM_AUTH_USERNAME=$${NPM_AUTH_USERNAME} --build-arg NPM_AUTH_TOKEN=$${NPM_AUTH_TOKEN} -t asl .
+      - docker build --build-arg NPM_AUTH_USERNAME=$${NPM_AUTH_USERNAME} --build-arg NPM_AUTH_TOKEN=$${NPM_AUTH_TOKEN} -t asl-register .
     when:
       branch: master
-      event: [push, tag]
+      event: [push, pull_request, tag]
 
   image_to_quay:
     image: docker:17.09.1
@@ -39,8 +39,8 @@ pipeline:
       - DOCKER_HOST=tcp://172.17.0.1:2375
     commands:
       - docker login -u="ukhomeofficedigital+asl" -p=$${DOCKER_PASSWORD} quay.io
-      - docker tag asl quay.io/ukhomeofficedigital/asl:$${DRONE_COMMIT_SHA}
-      - docker push quay.io/ukhomeofficedigital/asl:$${DRONE_COMMIT_SHA}
+      - docker tag asl-register quay.io/ukhomeofficedigital/asl-register:$${DRONE_COMMIT_SHA}
+      - docker push quay.io/ukhomeofficedigital/asl-register:$${DRONE_COMMIT_SHA}
     when:
       branch: master
       event: [push, tag]
@@ -59,7 +59,7 @@ pipeline:
       event: push
 
   configure_deploy:
-    image: node:8
+    image: node:10
     secrets:
       - npm_auth_token
     commands:
@@ -101,21 +101,6 @@ pipeline:
       environment: preprod
       event: deployment
 
-  post_deploy_test:
-    image: node:8
-    secrets:
-      - npm_auth_token
-      - aws_access_key
-      - aws_secret
-    commands:
-      - npm install
-      - npm run test:functional -- --suite smoke
-    when:
-      event: deployment
-      environment:
-        - dev
-        - preprod
-
   slack:
     image: plugins/slack
     secrets:
@@ -139,9 +124,3 @@ pipeline:
 matrix:
   NPM_AUTH_USERNAME:
     - asl
-
-services:
-  selenium:
-    image: selenium/standalone-chrome
-    when:
-      event: deployment
