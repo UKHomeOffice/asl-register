@@ -1,0 +1,66 @@
+---
+- name: register
+  recipe: webapp
+  url: register.notprod.asl.homeoffice.gov.uk
+  image: quay.io/ukhomeofficedigital/asl-register:{{.DRONE_COMMIT_SHA}}
+  env:
+    REDIS_HOST: register-redis
+    REDIS_PASSWORD:
+      secret: true
+      name: asl-dev-redis
+      key: pass
+    SESSION_SECRET:
+      secret: true
+      name: asl-dev-session
+      key: secret
+    KEYCLOAK_REALM: Asl-dev
+    KEYCLOAK_URL: https://sso-dev.notprod.homeoffice.gov.uk/auth
+    KEYCLOAK_CLIENT: asl-dev-connect
+    KEYCLOAK_SECRET:
+      secret: true
+      name: asl-dev-auth
+      key: secret
+    DATABASE_HOST:
+      secret: true
+      name: asl-dev-rds
+      key: endpoint
+    DATABASE_NAME:
+      secret: true
+      name: asl-dev-rds
+      key: db_name
+    DATABASE_USERNAME:
+      secret: true
+      name: asl-dev-rds
+      key: username
+    DATABASE_PASSWORD:
+      secret: true
+      name: asl-dev-rds
+      key: password
+    DATABASE_PORT:
+      secret: true
+      name: asl-dev-rds
+      key: port
+    SQS_REGION: eu-west-2
+    SQS_ACCESS_KEY:
+      secret: true
+      name: asl-changerequests-dev-sqs
+      key: access_key_id
+    SQS_SECRET:
+      secret: true
+      name: asl-changerequests-dev-sqs
+      key: secret_access_key
+    SQS_URL:
+      secret: true
+      name: asl-changerequests-dev-sqs
+      key: sqs_queue_url
+    JWT_SECRET:
+      secret: true
+      name: asl-dev-jwt
+      key: token
+    CLIENT_URL: https://public-ui.notprod.asl.homeoffice.gov.uk/
+
+- name: register-redis
+  recipe: redis
+  clients: register
+  passwordName: asl-dev-redis
+  passwordKey: pass

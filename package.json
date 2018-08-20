@@ -1,0 +1,41 @@
+{
+  "name": "asl-register",
+  "version": "1.0.0",
+  "description": "Animal Science Licensing",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon -r dotenv/config",
+    "test": "npm run test:lint",
+    "test:lint": "eslint .",
+    "build": "npm run build:css",
+    "prebuild:css": "mkdir -p ./public/css",
+    "build:css": "npm-sass ./assets/sass/app.scss > ./public/css/app.css",
+    "postinstall": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UKHomeOffice/asl-register.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UKHomeOffice/asl-register/issues"
+  },
+  "homepage": "https://github.com/UKHomeOffice/asl-register#readme",
+  "dependencies": {
+    "@asl/pages": "^5.2.0",
+    "@asl/schema": "^3.2.1",
+    "@asl/service": "^4.1.0",
+    "aws-sdk": "^2.293.0",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.10"
+  },
+  "devDependencies": {
+    "dotenv": "^5.0.1",
+    "eslint": "^4.15.0",
+    "eslint-config-lennym": "^2.0.1",
+    "nodemon": "^1.17.4",
+    "npm-sass": "^2.3.0"
+  }
+}
