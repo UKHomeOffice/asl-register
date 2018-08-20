@@ -1,6 +1,5 @@
 module.exports = {
   port: process.env.PORT || 8080,
-  api: process.env.API_URL,
   session: {
     secret: process.env.SESSION_SECRET,
     host: process.env.REDIS_HOST,
