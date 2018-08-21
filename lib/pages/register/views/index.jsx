@@ -11,8 +11,8 @@ const Page = ({
 }) => (
   <FormLayout>
     <header>
-      <h2><Snippet>createAccount</Snippet></h2>
-      <h1>{establishmentName}</h1>
+      <h2>{establishmentName}</h2>
+      <h1><Snippet>createAccount</Snippet></h1>
     </header>
     <div className="panel panel-wide">
       <Snippet email={email}>account.setup</Snippet>

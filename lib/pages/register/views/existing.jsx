@@ -6,8 +6,8 @@ import Snippet from '@asl/pages/pages/common/views/containers/snippet';
 const Page = ({ establishmentName }) => (
   <FormLayout>
     <header>
-      <h2><Snippet>existingUser</Snippet></h2>
-      <h1>{establishmentName}</h1>
+      <h2>{establishmentName}</h2>
+      <h1><Snippet>existingUser</Snippet></h1>
     </header>
     <Inset>
       <Snippet>acceptInvitation</Snippet>
