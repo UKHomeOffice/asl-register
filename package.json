@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-register#readme",
   "dependencies": {
-    "@asl/pages": "^12.2.1",
+    "@asl/pages": "^12.3.1",
     "@asl/schema": "^7.0.1",
     "@asl/service": "^6.2.0",
     "aws-sdk": "^2.293.0",
